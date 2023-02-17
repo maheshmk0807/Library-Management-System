@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "card")
@@ -13,7 +15,8 @@ public class Card {
 
     //Save this card in DB
     //Before that set its attributes
-    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id; // Auto Generated
 
     @CreationTimestamp
@@ -25,11 +28,19 @@ public class Card {
     @Enumerated(value = EnumType.STRING)
     private CardStatus cardStatus; //SET in StudentService
 
+    //Card is child wrt student
+    //One card one student
     @OneToOne
     @JoinColumn
     private Student studentVariableName; //SET in StudentService
 
+    //Card is parent wrt book
+    //One card -> many books
+    @OneToMany(mappedBy ="card", cascade = CascadeType.ALL)
+    private List<Book> booksIssued;
+
     public Card() {
+        booksIssued = new ArrayList<>(); // You can initialize while creating // Spring auto do it but good to init by self
     }
 
     public int getId() {
