@@ -14,6 +14,7 @@ public class Author {
     private String name;
     private int age;
     private String country;
+    private double rating;
 
     // Author is Parent wrt book
     //Its bidirectional so write in parent too
@@ -24,6 +25,14 @@ public class Author {
 
     public Author() {
         booksWritten=new ArrayList<>(); // You can initialize while creating // Spring auto do it but good to init by self
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 
     public int getId() {
